@@ -1,0 +1,63 @@
+import { Button, VerticalBox, LineEdit } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    height: 370px;
+    width: 320px;
+
+    in-out property<float> temp: 10;
+    in-out property<float> c_f: 0;
+    in-out property<float> f_c: 0;
+
+    callback convert-c-f(string);
+    callback convert-f-c(string);
+
+    VerticalBox {
+        padding: 15px;
+        spacing: 15px;
+        Text {
+            color: orange;
+            text: "Convert Celisus to Farenheit or vice versa";
+            font-size: 27px;
+            wrap: word-wrap;
+            horizontal-alignment: center;
+        }
+        LineEdit {
+            placeholder-text: "Input temp";
+            font-size: 20px;
+            horizontal-alignment: center;
+            input-type: number;
+            edited(str) => {
+                debug(str);
+                root.convert-c-f(str);
+                root.convert-f-c(str);
+            }
+        }
+        HorizontalLayout {
+            spacing: 8px;
+            VerticalBox {
+                Text {
+                    text: "Celisus to Fahrenheit";
+                    font-size: 13px;
+                    horizontal-alignment: center;
+                }
+                Text { 
+                    horizontal-alignment: center;
+                    text: "\{root.c_f}"; 
+                    font-size: 25px;
+                }
+            }
+            VerticalBox {
+                Text {
+                    text: "Fahrenheit to Celisus";
+                    font-size: 13px;
+                    horizontal-alignment: center;
+                }
+                Text { 
+                    horizontal-alignment: center;
+                    text: "\{root.f_c}"; 
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}
